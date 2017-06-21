@@ -1,0 +1,33 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="de.iprocon.controller.Master">
+	<Page id="page" navButtonPress="onNavBack" showNavButton="true" title="{masterView&gt;/title}">
+		<subHeader>
+			<Bar id="headerBar">
+				<contentMiddle>
+					<SearchField id="searchField" search="onSearch" showRefreshButton="{= !${device&gt;/support/touch} }" tooltip="{i18n&gt;masterSearchTooltip}" width="100%"/>
+				</contentMiddle>
+			</Bar>
+		</subHeader>
+		<content>
+			<PullToRefresh id="pullToRefresh" refresh="onRefresh" visible="{device&gt;/support/touch}"/>
+			<!-- For client side filtering add this to the items attribute:  parameters: {operationMode: 'Client'}}" -->
+			<List busyIndicatorDelay="{masterView>/delay}" growing="true" growingScrollToLoad="true" growingThreshold="10" id="list" items="{ path: '/AttendanceIntervalSet', sorter: { path: 'ID', descending: true }, groupHeaderFactory: '.createGroupHeader' }" mode="{= ${device&gt;/system/phone} ? 'None' : 'SingleSelectMaster'}" noDataText="{masterView&gt;/noDataText}" selectionChange="onSelectionChange" updateFinished="onUpdateFinished">
+				<infoToolbar>
+					<Toolbar active="true" id="filterBar" press="onOpenViewSettings" visible="{masterView&gt;/isFilterBarVisible}">
+						<Title id="filterBarLabel" text="{masterView&gt;/filterBarLabel}"/>
+					</Toolbar>
+				</infoToolbar>
+				<items>
+					<ObjectListItem press="onSelectionChange" title="{path: 'BeginDate', type: 'sap.ui.model.type.Date', pattern: 'dd.MM.yyyy'}-{path: 'EndDate', type: 'sap.ui.model.type.Date', pattern: 'dd.MM.yyyy'}" type="{= ${device&gt;/system/phone} ? 'Active' : 'Inactive'}"/>
+				</items>
+			</List>
+		</content>
+		<footer>
+			<OverflowToolbar id="footerbar">
+			    <content>
+			        <Button text="In" width="100px" id="buttonIn" icon="sap-icon://navigation-right-arrow" press="onButtonInPress"/>
+			        <Button text="Out" width="100px" id="buttonOut" iconFirst="false" icon="sap-icon://navigation-right-arrow" press="onButtonOutPress"/>
+			    </content>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

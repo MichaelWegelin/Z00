@@ -1,0 +1,48 @@
+<mvc:View xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:sap.ui.core="sap.ui.core" xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.commons="sap.ui.commons" controllerName="de.iprocon.controller.Detail">
+	<Page busy="{detailView&gt;/busy}" busyIndicatorDelay="{detailView&gt;/delay}" id="page" navButtonPress="onNavBack" showNavButton="{device&gt;/system/phone}" title="{i18n&gt;detailTitle}">
+		<content>
+			<ObjectHeader id="objectHeader" title="{path: 'BeginDate', type: 'sap.ui.model.type.Date', pattern: 'dd.MM.yyyy'}-{path: 'EndDate', type: 'sap.ui.model.type.Date', pattern: 'dd.MM.yyyy'}"/>
+			<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="false" layout="ResponsiveGridLayout" id="__form0">
+			    <sap.ui.layout.form:content>
+			        <sap.ui.core:Title xmlns:sap.ui.core="sap.ui.core" text="{i18n&gt;DetailViewTitle}" id="__title0"/>
+			        <Label text="Country" id="labelCountry"/>
+<!--			        <ComboBox items="{/CountrySet}" selectedItem="Element sap.ui.core.ListItem#__item0" value="Germany" selectedKey="{CountryKey}" id="countryBox">-->
+			        <ComboBox selectedItem="Element sap.ui.core.ListItem#__item0" value="Germany" selectedKey="{CountryKey}" id="countryBox">
+			            <items>
+			                <sap.ui.core:ListItem text="Germany" key="DE" id="__item0"/>
+			                <sap.ui.core:ListItem text="France" key="FR" id="__item1"/>
+			                <sap.ui.core:ListItem text="UK" key="UK" id="__item2"/>
+			                <sap.ui.core:ListItem text="Undefined" key="" id="__item3"/>
+			             </items>
+			        </ComboBox>
+			        <Label text="Reason" id="labelDescription"/>
+			        <Input width="100%" id="Description" value="{AttendanceReason}"/>
+			        <Label text="BeginDate" width="100%" id="labelBeginDate"/>
+			        <DatePicker width="100%" id="BeginDate" value="{path: 'BeginDate', type: 'sap.ui.model.odata.type.DateTime', formatOptions: {UTC: true}, constraints: {displayFormat: 'Date'}}" displayFormat="dd.MM.yyyy" valueFormat="yyyyMMdd"/>
+			        <Label text="EndDate" width="100%" id="labelEndDate"/>
+			        <DatePicker width="100%" id="EndDate" value="{path: 'EndDate', type: 'sap.ui.model.odata.type.DateTime', formatOptions: {UTC: true}, constraints: {displayFormat: 'Date'}}" displayFormat="dd.MM.yyyy" valueFormat="yyyyMMdd"/>
+			        <Label text="Label" width="100%" id="__label1"/>
+			        </sap.ui.layout.form:content>
+			</sap.ui.layout.form:SimpleForm>
+		</content>
+		<footer>
+			<OverflowToolbar id="footerToolbar">
+				<ToolbarSpacer/>
+				<Button text="" width="" id="saveButton" icon="sap-icon://save" type="Accept" press="onSaveButtonPress"/>
+				<Button text="" width="" id="deleteButton" icon="sap-icon://delete" type="Reject" press="onDeleteButtonPress"/>
+				<Button icon="sap-icon://action" id="shareButton" press="onSharePress" tooltip="{i18n&gt;shareTooltip}">
+					<dependents>
+						<ActionSheet id="shareSheet" placement="Top" showCancelButton="true">
+							<buttons>
+								<Button icon="sap-icon://email" id="shareEmail" press="onShareEmailPress" text="{i18n&gt;shareSendEmail}"/>
+								<Button icon="sap-icon://jam" id="shareInJam" press="onShareInJamPress" text="{i18n&gt;shareOnJamTitle}" visible="{FLP&gt;/isShareInJamActive}"/>
+								<footerbar:AddBookmarkButton appData="{ path: 'detailView&gt;/saveAsTileTitle', formatter: '.formatter.shareTileData' }" id="shareTile"/>
+							</buttons>
+						</ActionSheet>
+					</dependents>
+				</Button>
+			<content/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>
